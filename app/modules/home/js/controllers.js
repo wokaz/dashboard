@@ -37,9 +37,9 @@ angular.module('okoa.home.controllers', [])
         $scope.hhead = "head";
         //dataStore.setParentActivity("home.search");
 
-        $scope.search = function(){
+        $scope.login = function(){
             console.log('Attempt to go to search');
-            $state.go('home.results',{query:'skdfbsjh'});
+            $state.go('dashboard.dashboard');
         }
     }])
     .controller('RegisterController',['$state','$scope','dataStore','searchService','$stateParams', function ($state,$scope,dataStore,searchService,$stateParams) {
