@@ -4,10 +4,8 @@
 
 angular.module('okoa.services',[])
     .service('urlProvider',function () {
-        //this.apiEndPoint = "https://www.masikini.com/api/v2/";
-        this.apiEndPoint = "http://localhost:8888/masikini/api/v2/";
+        this.apiEndPoint = "http://127.0.0.1/api/";
         this.session_timeout = 600;
-        //this.session_timeout = 100;
     })
     .factory('userService',['dataStore', function (dataStore) {
         var userStore = {};

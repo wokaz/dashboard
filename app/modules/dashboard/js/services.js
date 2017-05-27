@@ -16,6 +16,14 @@ angular.module('okoa.dashboard.services', [])
                 }).then(function(response){
                     return response.data;
                 });
+            },
+            initData : function () {
+                return $http({
+                    method: "get",
+                    url: urlProvider.apiEndPoint+"initData"
+                }).then(function(response){
+                    return response.data;
+                });
             }
         }
     }])

@@ -2,16 +2,20 @@
     <div class="col-md-4"></div>
     <div class="col-md-4" style="background-color: white; opacity: 0.9; padding: 10px;">
         <h3 class="text-center text-info">Login</h3>
-        <form ng-submit="login()">
-            <div class="form-group">
-                <!--<label for="exampleInputEmail1">Email address</label>-->
-                <input type="number" ng-model="login.phone" class="form-control" placeholder="Phone Number">
+        <form name="loginForm" ng-submit="login()">
+            <div class="form-group" ng-class="{'has-error':loginForm.username.$touched && loginForm.username.$invalid}">
+                <input type="number" ng-model="loginData.username" name="username" class="form-control" placeholder="Phone Number" ng-pattern="/^((\+?256)|0)\d{9}$|^(0)\d{9}$/" required>
+                <div ng-messages="loginForm.username.$error" class="help-block" ng-show="loginForm.username.$touched">
+                    <p ng-message="pattern">Phone number is invalid.</p>
+                </div>
             </div>
-            <div class="form-group">
-                <!--<label for="exampleInputPassword1">Password</label>-->
-                <input type="number" ng-model="login.pin" class="form-control" placeholder="PIN">
+            <div class="form-group" ng-class="{'has-error':loginForm.password.$touched && loginForm.password.$invalid}">
+                <input type="password" name="password" ng-model="loginData.password" class="form-control" placeholder="PIN"  ng-pattern="/^[0-9]{5}$/" required>
+                <div ng-messages="loginForm.password.$error" class="help-block" ng-show="loginForm.password.$touched">
+                    <p ng-message="pattern">PIN is invalid.</p>
+                </div>
             </div>
-            <button type="submit" class="btn btn-success form-control">LOGIN</button>
+            <button type="submit" class="btn btn-success form-control" ng-disabled="loginForm.$invalid">LOGIN</button>
         </form>
         <div class="row">
             <div class="col-md-6">
@@ -20,6 +24,12 @@
             <div class="col-md-6">
                 <a ui-sref="home.forgot">Forgot Password</a>
             </div>
+        </div>
+        <div class="alert alert-info" ng-show="loading">
+            <img src="../../../img/loading_transparent.GIF">
+        </div>
+        <div class="alert alert-danger" ng-show="callFail">
+            <strong>Error ! </strong> {{callError}}
         </div>
     </div>
     <div class="col-md-4"></div>

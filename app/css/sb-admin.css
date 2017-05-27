@@ -66,7 +66,8 @@ body {
 .top-nav>.open>a:hover,
 .top-nav>.open>a:focus {
     color: #fff;
-    background-color: #000;
+    /*background-color: #000;*/
+    background-color: #1b1928;
 }
 
 .top-nav>.open>.dropdown-menu {
@@ -122,7 +123,8 @@ ul.alert-dropdown {
         border: none;
         border-radius: 0;
         overflow-y: auto;
-        background-color: #222;
+        /*background-color: #222;*/
+        background-color: #34314c;
         bottom: 0;
         overflow-x: hidden;
         padding-bottom: 40px;

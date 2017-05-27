@@ -14,10 +14,10 @@ angular.module('okoa', [
 
         //configure $http
         $httpProvider.defaults.headers.post = {
-            'Content-Type': 'application/x-www-form-urlencoded'
+            'Content-Type': 'application/json'
         };
         $httpProvider.defaults.headers.put = {
-            'Content-Type': 'application/x-www-form-urlencoded'
+            'Content-Type': 'application/json'
         };
 
         //set interceptors

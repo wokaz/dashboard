@@ -49,4 +49,20 @@ angular.module('okoa.dashboard.controllers', [])
         //console.log('The user');
         $scope.title = "Dashboard";
         $scope.hhead = "head";
+    }])
+    .controller('SettingsController',['$state','$scope', function ($state,$scope) {
+        console.log('Settings pom pom');
+        $scope.title = "Settings";
+
+        $scope.settings = {};
+        $scope.settings.description = "SAC DIS";
+        $scope.settings.spendable = 6;
+
+        //validate
+        $scope.valSpendable  = function(data){
+            if(data < 5 || data > 10){
+                return "The allowable range is between 5-10 %";
+            }
+        }
+
     }]);

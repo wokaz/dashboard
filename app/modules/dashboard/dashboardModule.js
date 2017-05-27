@@ -19,9 +19,9 @@ myApp.config(['$stateProvider', function ($stateProvider) {
         url:'',
         controller:'DashboardController',
         templateUrl: 'modules/dashboard/views/dashboard.html'
-    }).state('dashboard.upload',{
-        url:'/uploadImages',
-        controller:'UploadController',
-        templateUrl:'modules/dashboard/views/picUpload.html'
+    }).state('dashboard.settings',{
+        url:'/settings',
+        controller:'SettingsController',
+        templateUrl:'modules/dashboard/views/settings.html'
     })
 }]);

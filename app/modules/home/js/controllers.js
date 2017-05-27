@@ -38,26 +38,26 @@ angular.module('okoa.home.controllers', [])
         //dataStore.setParentActivity("home.search");
 
         $scope.login = function(){
-            console.log('Attempt to login');
-            $state.go('dashboard.dashboard');
-            
+            console.log('Attempt to login ::' , $scope.loginData);
+
             $scope.loading = true;
-            authenticator.login($scope.loginData)
-                .then(function (response) {
-                    $scope.loading = false;
-                    if(response.success){
-                        $scope.callSuccess = true;
-                        $scope.payload = response.payload;
-                    }else{
-                        $scope.callFail = true;
-                        $scope.callError = response.message;
-                    }
-                },function(err){
-                    $scope.loading = false;
-                    $scope.callFail = true;
-                    $scope.callSuccess = false;
-                    $scope.callError = err.statusText;
-                })
+            $state.go('dashboard.dashboard');
+            //authenticator.login($scope.loginData)
+            //    .then(function (response) {
+            //        $scope.loading = false;
+            //        if(response.success){
+            //            $scope.callSuccess = true;
+            //            $scope.payload = response.payload;
+            //        }else{
+            //            $scope.callFail = true;
+            //            $scope.callError = response.message;
+            //        }
+            //    },function(err){
+            //        $scope.loading = false;
+            //        $scope.callFail = true;
+            //        $scope.callSuccess = false;
+            //        $scope.callError = err.statusText;
+            //    })
         }
     }])
     .controller('RegisterController',['$state','$scope','dataStore','registrationService','$stateParams', function ($state,$scope,dataStore,registrationService,$stateParams) {
@@ -66,22 +66,24 @@ angular.module('okoa.home.controllers', [])
         $scope.registerData = {};
 
         $scope.register = function(){
-            registrationService.register($scope.registerData)
-                .then(function (response) {
-                    $scope.loading = false;
-                    if(response.success){
-                        $scope.callSuccess = true;
-                        $scope.payload = response.payload;
-                    }else{
-                        $scope.callFail = true;
-                        $scope.callError = response.message;
-                    }
-                },function(err){
-                    $scope.loading = false;
-                    $scope.callFail = true;
-                    $scope.callSuccess = false;
-                    $scope.callError = err.statusText;
-                })
+            $scope.loading = true;
+            console.log("registering , data ::",$scope.registerData);
+            //registrationService.register($scope.registerData)
+            //    .then(function (response) {
+            //        $scope.loading = false;
+            //        if(response.success){
+            //            $scope.callSuccess = true;
+            //            $scope.payload = response.payload;
+            //        }else{
+            //            $scope.callFail = true;
+            //            $scope.callError = response.message;
+            //        }
+            //    },function(err){
+            //        $scope.loading = false;
+            //        $scope.callFail = true;
+            //        $scope.callSuccess = false;
+            //        $scope.callError = err.statusText;
+            //    })
         }
     }])
     .controller('DetailsUSController',['$state','$scope','productService','$stateParams',function($state,$scope,productService,$stateParams){
