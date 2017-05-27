@@ -9,10 +9,10 @@ angular.module('okoa.dashboard.services', [])
                     return response.data;
                 });
             },
-            pendingApprovals : function () {
+            loanPendingApprovals : function () {
                 return $http({
                     method: "get",
-                    url: urlProvider.apiEndPoint+"pendingApprovals"
+                    url: urlProvider.apiEndPoint+"loanPendingApprovals"
                 }).then(function(response){
                     return response.data;
                 });
@@ -20,7 +20,15 @@ angular.module('okoa.dashboard.services', [])
             initData : function () {
                 return $http({
                     method: "get",
-                    url: urlProvider.apiEndPoint+"initData"
+                    url: urlProvider.apiEndPoint+"account"
+                }).then(function(response){
+                    return response.data;
+                });
+            },
+            transactions : function () {
+                return $http({
+                    method: "get",
+                    url: urlProvider.apiEndPoint+"transactions"
                 }).then(function(response){
                     return response.data;
                 });
@@ -29,6 +37,14 @@ angular.module('okoa.dashboard.services', [])
     }])
     .factory('transactionService',['$http','urlProvider', function ($http,urlProvider) {
         return {
-
+            updateSettings : function (updateData) {
+            return $http({
+                method: "post",
+                url: urlProvider.apiEndPoint+"updateSettings",
+                data : updateData
+            }).then(function(response){
+                return response.data;
+            });
+        }
         }
     }]);

@@ -6,22 +6,11 @@ angular.module('okoa.dashboard.controllers', [])
         //console.log('The user',user);
         $rootScope.counter = urlProvider.session_timeout;
 
-        console.log("jasjdvajd");
-
         $scope.logout = function () {
             //scrub info
             userService.user = undefined;
             dataStore.removeUser();
-            authorizer.logout()
-                .then(function (response) {
-                    if(response.status){
-                        dataStore.remove("returnTo");
-                        dataStore.localStore("returnTo",$location.path());
-                        $state.go('auth.login');
-                    }else{
-                        console.log('logout failed');
-                    }
-                });
+            $state.go('home.login');
         };
 
         var timer = $interval(function () {
@@ -45,16 +34,45 @@ angular.module('okoa.dashboard.controllers', [])
         });
 
     }])
-    .controller('DashboardController',['$state','$scope', function ($state,$scope) {
+    .controller('DashboardController',['$state','$scope','dataStore','dataService', function ($state,$scope,dataStore,dataService) {
         //console.log('The user');
         $scope.title = "Dashboard";
-        $scope.hhead = "head";
+
+        console.log('User token ::',dataStore.localGet('token'));
+        console.log('Group code ::',dataStore.localGet('sacco_code'));
+
+        $scope.getInitData = function(){
+            $scope.loading = true;
+            dataService.initData()
+                .then(function (response) {
+                    $scope.loading = false;
+                    console.log("Init response ::",response);
+                })
+        };
+
+        $scope.getInitData();
     }])
-    .controller('SettingsController',['$state','$scope', function ($state,$scope) {
+    .controller('UsersController',['$state','$scope','dataService','dataStore', function ($state,$scope,dataService,dataStore) {
+        $scope.title = "Users";
+
+        console.log("user token ::" + dataStore.localGet('token'));
+    }])
+    .controller('LoansController',['$state','$scope','dataService', function ($state,$scope,dataService) {
+        $scope.title = "Loans";
+    }])
+    .controller('LogoutController',['$state','$scope','userService','dataStore', function ($state,$scope,userService,dataStore) {
+        $scope.title = "Logout";
+
+        userService.user = undefined;
+        dataStore.removeUser();
+        $state.go('home.login');
+    }])
+    .controller('SettingsController',['$state','$scope','transactionService', function ($state,$scope,transactionService) {
         console.log('Settings pom pom');
         $scope.title = "Settings";
 
         $scope.settings = {};
+        $scope.updateData = {};
         $scope.settings.description = "SAC DIS";
         $scope.settings.spendable = 6;
 
@@ -63,6 +81,25 @@ angular.module('okoa.dashboard.controllers', [])
             if(data < 5 || data > 10){
                 return "The allowable range is between 5-10 %";
             }
+        };
+
+        $scope.updateSettings = function () {
+            $scope.loading = true;
+            transactionService.updateSettings($scope.updateData)
+                .then(function (response) {
+                    $scope.loading = false;
+                    if(response.success){
+                        $scope.callSuccess = true;
+                    }else{
+                        $scope.callFail = true;
+                        $scope.callError = response.message;
+                    }
+                }, function (err) {
+                    $scope.loading = false;
+                    $scope.callFail = true;
+                    $scope.callSuccess = false;
+                    $scope.callError = err.statusText;
+                })
         }
 
     }]);

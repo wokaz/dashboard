@@ -6,8 +6,11 @@ angular.module('okoa.home.services', [])
         return {
             login : function(loginData){
                 return $http({
-                    method: "get",
-                    url: urlProvider.apiEndPoint + "login",
+                    method: "post",
+                    url: urlProvider.apiEndPoint + "security/login",
+                    //headers: {
+                    //    "Content-Type": "application/json"
+                    //},
                     data: loginData
                 }).then(function(response){
                     return response.data;
@@ -19,8 +22,8 @@ angular.module('okoa.home.services', [])
         return {
             register : function(registerData){
                 return $http({
-                    method: "get",
-                    url: urlProvider.apiEndPoint+"register/am/"+query+"?page="+page+"&limit="+limit+"&domain="+domain,
+                    method: "post",
+                    url: urlProvider.apiEndPoint+"setup/create",
                     data: registerData
                 }).then(function(response){
                     return response.data;

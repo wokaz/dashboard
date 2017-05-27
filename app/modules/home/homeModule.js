@@ -21,10 +21,24 @@ myApp.config(['$stateProvider', function ($stateProvider) {
     }).state('home.login',{
         url:'/login',
         controller:'LoginController',
-        templateUrl: 'modules/home/views/login.html'
+        templateUrl: 'modules/home/views/login.html',
+        resolve: {
+            user: ['userService', '$q', function (userService, $q) {
+                if (userService.user) {
+                    return $q.reject({authorized: true});
+                }
+            }]
+        }
     }).state('home.register',{
         url:'/register',
         controller:'RegisterController',
-        templateUrl: 'modules/home/views/register.html'
+        templateUrl: 'modules/home/views/register.html',
+        resolve: {
+            user: ['userService', '$q', function (userService, $q) {
+                if (userService.user) {
+                    return $q.reject({authorized: true});
+                }
+            }]
+        }
     })
 }]);

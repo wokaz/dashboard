@@ -4,7 +4,8 @@
 
 angular.module('okoa.services',[])
     .service('urlProvider',function () {
-        this.apiEndPoint = "http://127.0.0.1/api/";
+        //this.apiEndPoint = "http://212.47.246.249:8080/";
+        this.apiEndPoint = "http://192.168.1.203:8080/";
         this.session_timeout = 600;
     })
     .factory('userService',['dataStore', function (dataStore) {
@@ -17,12 +18,17 @@ angular.module('okoa.services',[])
 
         return userStore;
     }])
-    .factory('httpInterceptor',['$rootScope','$interval', function ($rootScope) {
+    .factory('httpInterceptor',['$rootScope','$interval','dataStore', function ($rootScope,$interval,dataStore) {
         return {
             request :function(config) {
-                //console.log('The counter',$rootScope.counter);
-                //console.log("Initial :::",new Date().toLocaleTimeString());
+                console.log('The tooooken',dataStore.localGet('token'));
                 $rootScope.$broadcast('session_checkin','session timeout');
+                //if (dataStore.getLogin() !== null) {
+                config.headers['Authorization'] = 'Bearer ' + dataStore.localGet('token');
+                //config.headers.authorization = 'Bearer ' + dataStore.localGet('token');
+                //if (dataStore.localGet('token') !== null) {
+                //    config.headers['Authorization'] = 'bearer ' + dataStore.localGet('token');
+                //}
                 return config;
             }
         }
@@ -82,32 +88,5 @@ angular.module('okoa.services',[])
                 });
             }
         }
-
-    }])
-    .factory('theSocketer',['$websocket', function ($websocket) {
-        // Open a WebSocket connection
-        var dataStream = $websocket('ws://localhost:8001/echo');
-
-        var collection = [];
-
-        dataStream.onMessage(function(message) {
-            collection.push(JSON.parse(message.data));
-            console.log('Socket message',angular.fromJson(message.data));
-        });
-
-        dataStream.onOpen(function () {
-            console.log('Socket open');
-        });
-
-        dataStream.onClose(function(event){
-            console.log('Socket closed ::',event);
-        });
-
-        return {
-            collection: collection,
-            get: function() {
-                dataStream.send(JSON.stringify({ action: 'get' }));
-            }
-        };
 
     }]);

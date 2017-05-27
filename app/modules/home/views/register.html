@@ -11,7 +11,7 @@
             </div>
             <hr>
             <div class="form-group" ng-class="{'has-error':registerForm.fullname.$touched && registerForm.fullname.$invalid}">
-                <input type="text" class="form-control" name="fullname" ng-model="registerData.fullname" ng-pattern="/^[a-zA-Z ]*$/" required placeholder="Full Name">
+                <input type="text" class="form-control" name="fullname" ng-model="registerData.fullName" ng-pattern="/^[a-zA-Z ]*$/" required placeholder="Full Name">
                 <div ng-messages="registerForm.fullname.$error" class="help-block" ng-show="registerForm.fullname.$touched">
                     <p ng-message="required">Full Name is required.</p>
                 </div>
@@ -24,14 +24,14 @@
                 </div>
             </div>
             <div class="form-group" ng-class="{'has-error':registerForm.phone.$touched && registerForm.phone.$invalid}">
-                <input type="number" class="form-control" placeholder="Phone Number" name="phone" ng-model="registerData.phone" ng-pattern="/^((\+?256)|0)\d{9}$|^(0)\d{9}$/" required>
+                <input type="text" class="form-control" placeholder="Phone Number" name="phone" ng-model="registerData.phone" ng-pattern="/^((\+?256)|0)\d{9}$|^(0)\d{9}$/" required>
                 <div ng-messages="registerForm.phone.$error" class="help-block text-danger" ng-show="registerForm.phone.$touched">
                     <p ng-message="required">Phone number is required.</p>
                     <p ng-message="pattern">Invalid phone number</p>
                 </div>
             </div>
             <div class="form-group" ng-class="{'has-error':registerForm.password.$touched && registerForm.password.$invalid}">
-                <input type="number" class="form-control" placeholder="PIN" name="password" ng-model="registerData.password" ng-pattern="/^[0-9]{5}$/" required>
+                <input type="password" class="form-control" placeholder="PIN" name="password" ng-model="registerData.password" ng-pattern="/^[0-9]{5}$/" required>
                 <div ng-messages="registerForm.password.$error" class="help-block text-danger" ng-show="registerForm.password.$touched">
                     <p ng-message="pattern">PIN is invalid.</p>
                 </div>
@@ -44,7 +44,7 @@
                 </div>
             </div>
             <div class="form-group" ng-class="{'has-error':registerForm.kinPhone.$touched && registerForm.kinPhone.$invalid}">
-                <input type="number" class="form-control" placeholder="Phone Number" name="kinPhone" ng-model="registerData.kinPhone" ng-pattern="/^((\+?256)|0)\d{9}$|^(0)\d{9}$/" required>
+                <input type="text" class="form-control" placeholder="Phone Number" name="kinPhone" ng-model="registerData.kinPhone" ng-pattern="/^((\+?256)|0)\d{9}$|^(0)\d{9}$/" required>
                 <div ng-messages="registerForm.kinPhone.$error" class="help-block text-danger" ng-show="registerForm.kinPhone.$touched">
                     <p ng-message="required">Next of kin phone number is required.</p>
                     <p ng-message="pattern">Invalid phone number</p>
@@ -61,6 +61,9 @@
             </div>
             <div class="alert alert-danger" ng-show="callFail">
                 <strong> Error !</strong> {{callError}}
+            </div>
+            <div class="alert alert-success" ng-show="callSuccess">
+                <strong> Success !</strong> {{callMessage}}
             </div>
             <p>
                 <a ui-sref="home.login">Login</a>

@@ -4,7 +4,7 @@
         <h3 class="text-center text-info">Login</h3>
         <form name="loginForm" ng-submit="login()">
             <div class="form-group" ng-class="{'has-error':loginForm.username.$touched && loginForm.username.$invalid}">
-                <input type="number" ng-model="loginData.username" name="username" class="form-control" placeholder="Phone Number" ng-pattern="/^((\+?256)|0)\d{9}$|^(0)\d{9}$/" required>
+                <input type="text" ng-model="loginData.username" name="username" class="form-control" placeholder="Phone Number" ng-pattern="/^((\+?256)|0)\d{9}$|^(0)\d{9}$/" required>
                 <div ng-messages="loginForm.username.$error" class="help-block" ng-show="loginForm.username.$touched">
                     <p ng-message="pattern">Phone number is invalid.</p>
                 </div>

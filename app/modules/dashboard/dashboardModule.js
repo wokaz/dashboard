@@ -9,11 +9,11 @@ myApp.config(['$stateProvider', function ($stateProvider) {
         url: '/dashboard',
         abstract:true,
         controller:'MainController',
-        //resolve: {
-        //    user: ['userService', '$q', function (userService, $q) {
-        //        return userService.user || $q.reject({unAuthorized: true});
-        //    }]
-        //},
+        resolve: {
+            user: ['userService', '$q', function (userService, $q) {
+                return userService.user || $q.reject({unAuthorized: true});
+            }]
+        },
         templateUrl:'modules/dashboard/home.html'
     }).state('dashboard.dashboard',{
         url:'',
@@ -23,5 +23,9 @@ myApp.config(['$stateProvider', function ($stateProvider) {
         url:'/settings',
         controller:'SettingsController',
         templateUrl:'modules/dashboard/views/settings.html'
+    }).state('dashboard.logout',{
+        url:'/logout',
+        controller:'LogoutController',
+        templateUrl:'modules/dashboard/views/logout.html'
     })
 }]);
