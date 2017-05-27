@@ -1,0 +1,27 @@
+{
+  "name": "okoa",
+  "authors": [
+    "Andrew M <mamugasa@gmail.com>"
+  ],
+  "description": "Sacco Management System",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "angular": "^1.6.4",
+    "angular-local-storage": "^0.6.0",
+    "ng-table": "^4.0.0",
+    "angular-xeditable": "^0.7.1",
+    "angular-sanitize": "^1.6.4",
+    "angular-messages": "^1.6.4"
+  }
+}

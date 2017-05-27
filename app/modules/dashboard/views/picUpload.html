@@ -1,0 +1,185 @@
+<ol class="breadcrumb">
+    <li>
+        <i class="fa fa-dashboard"></i> <a ui-sref="home.dashboard">Dashboard</a>
+    </li>
+    <li class="active">
+        <i class="fa fa-gear"></i> pic upload.
+    </li>
+</ol>
+
+<h4>{{title}}</h4>
+
+<div class="col-md-6">
+
+    <div>
+
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active col-md-6"><a type="button" class="btn btn-info" href="uploadImages#mobile" aria-controls="home" role="tab"
+                                                      data-toggle="tab">Mobile Images</a></li>
+            <li role="presentation" class="col-md-6"><a type="button" class="btn btn-info" href="uploadImages#web" aria-controls="profile" role="tab"
+                                                data-toggle="tab">Web Images</a></li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="mobile">
+                Mobile Upload
+
+                <form enctype="multipart/form-data" name="mobileForm">
+                    <div class="form-group">
+                        <label for="imagetype">Image Type</label>
+                        <select class="form-control" name="imgType" id="imagetype"
+                                ng-model="imgType" required>
+                            <option value="">-- choose image type --</option>
+                            <option value="mobile_deals">Top Deals</option>
+                            <option value="mobile_phones">Phones</option>
+                            <option value="mobile_tablets">Tablets</option>
+                            <option value="mobile_electronics">Electronics</option>
+                            <option value="mobile_men">Men</option>
+                            <option value="mobile_women">Women</option>
+                            <option value="mobile_wholesale">Wholesale Lots</option>
+                            <option value="mobile_allCategories">All Categories</option>
+                            <option value="mobile_subCategories">Sub Categories</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="category">Parent Category</label>
+                        <select class="form-control" name="category" ng-disabled="imgType !== 'mobile_subCategories' && imgType !== 'mobile_allCategories'" id="category" ng-model="category">
+                            <option value="">-- choose parent category --</option>
+                            <option value="mobile_phones">Phones & Telecommunication</option>
+                            <option value="mobile_electronics">Electronics</option>
+                            <option value="mobile_electrical">Electrical Equipment & Supplies</option>
+                            <option value="mobile_men">Men's Clothing & Accessories</option>
+                            <option value="mobile_women">Women's Clothing & Accessories</option>
+                            <option value="mobile_shoes">Shoes</option>
+                            <option value="mobile_watches">Watches</option>
+                            <option value="mobile_computers">Computers & Office</option>
+                            <option value="mobile_house">House & Garden</option>
+                            <option value="mobile_luggage">Luggage & bags</option>
+                            <option value="mobile_health">health & Beauty</option>
+                            <option value="mobile_sports">Sports & Entertainment</option>
+                            <option value="mobile_toys">Toys & Hobbies</option>
+                            <option value="mobile_mother">Mother & Kids</option>
+                            <option value="mobile_jewelry">Jewelry & Accessories</option>
+                            <option value="mobile_weddings">Weddings & Events</option>
+                            <option value="mobile_lights">Lights & Lighting</option>
+                            <option value="mobile_furniture">Furniture</option>
+                            <option value="mobile_industry">Industry & Business</option>
+                            <option value="mobile_electronic">Electronic Components & Supplies</option>
+                            <option value="mobile_office">Office & School supplies</option>
+                            <option value="mobile_gifts">Gifts & Crafts</option>
+                            <option value="mobile_home">Home & Improvement</option>
+                            <option value="mobile_food">Food</option>
+                            <option value="mobile_travel">Travel</option>
+                            <option value="mobile_security">Security & Protection</option>
+                            <option value="mobile_automobile">Automobiles</option>
+                            <option value="mobile_novelty">Novelty</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="title">Image Title</label>
+                        <input type="text" class="form-control" name="title" id="title" ng-model="imgTitle"
+                               placeholder="Image title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="file">File input</label>
+                        <input type="file" id="file" name="webImg" ngf-select ng-model="picFile" name="file"
+                               accept="image/*" ngf-max-size="2MB" required ngf-model-invalid="errorFile">
+                        <i ng-show="myForm.file.$error.required">*required</i><br>
+                        <i ng-show="myForm.file.$error.maxSize">File too large
+                            {{errorFile.size / 1000000|number:1}}MB: max 2M</i>
+                        <img ng-show="myForm.file.$valid" ngf-thumbnail="picFile" class="thumb" height="100px">
+                        <button ng-click="picFile = null" ng-show="picFile">Remove</button>
+                    </div>
+                    <button type="submit" class="btn btn-danger" ng-click="upload(picFile)">Upload Image</button>
+                </form>
+
+                <span class="progress" ng-show="picFile.progress >= 0">
+                    <div style="width:{{picFile.progress}}%"
+                    ng-bind="picFile.progress + '%'"></div>
+                 </span>
+
+                <div class="alert alert-danger" ng-show="callFail">
+                    <stong>Error! </stong> {{message}}
+                </div>
+                <div class="alert alert-success" ng-show="callSuccess">
+                    <stong>Success! </stong> {{message}}
+                </div>
+                <div class="" ng-show="m_loading">
+                    <h1><img src="img/loading_transparent.GIF"> </h1>
+                </div>
+
+            </div> <!--/. tab mobile /-->
+            <div role="tabpanel" class="tab-pane" id="web">
+                <h4 class="text-info">Web Upload</h4>
+
+                <form enctype="multipart/form-data" name="webForm">
+                    <div class="form-group">
+                        <label for="w_imagetype">Image Type</label>
+                        <select class="form-control" name="imgType" id="w_imagetype"
+                                ng-model="w_imgType" ng-change="change()" required>
+                            <option value="">-- choose image type --</option>
+                            <option value="main">Main Slider</option>
+                            <option value="menu">Menu</option>
+                            <option value="featured">Featured Collection</option>
+                            <option value="women">Women's Fashion</option>
+                            <option value="men">Men's Fashion</option>
+                            <option value="electronics">Electronics</option>
+                            <option value="jewelry">Jewelry & Watches</option>
+                            <option value="beauty">Beauty & Health</option>
+                            <option value="home">Home & Garden</option>
+                            <option value="phone">Phones & Accessories</option>
+                            <option value="computer">Computers & Accessories</option>
+                            <option value="sport">Sports & Outdoors</option>
+                            <option value="kids">Kids & Toys</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="w_placement">Image Placement</label>
+                        <select class="form-control" name="w_imgPlacement" id="w_placement" ng-model="w_placement" ng-required="true">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="w_title">Image Title</label>
+                        <input type="text" class="form-control" name="w_title" id="w_title" ng-model="w_imgTitle"
+                               placeholder="Image title">
+                    </div>
+                    <div class="form-group">
+                        <label for="file">File input</label>
+                        <input type="file" id="w_file" name="webImg" ngf-select ng-model="w_picFile" name="w_file"
+                               accept="image/*" ngf-max-size="2MB" required ngf-model-invalid="errorFile">
+                        <i ng-show="webForm.w_file.$error.required">*required</i><br>
+                        <i ng-show="webForm.w_file.$error.maxSize">File too large
+                            {{errorFile.size / 1000000|number:1}}MB: max 2M</i>
+                        <img ng-show="webForm.w_file.$valid" ngf-thumbnail="w_picFile" class="thumb">
+                        <button ng-click="w_picFile = null" ng-show="w_picFile">Remove</button>
+                    </div>
+                    <button type="submit" ng-disabled="webForm.$invalid" class="btn btn-danger form-control" ng-click="w_upload(w_picFile)">Upload Image</button>
+                </form>
+
+                <span class="progress" ng-show="w_picFile.progress >= 0">
+                    <div style="width:{{w_picFile.progress}}%"
+                         ng-bind="w_picFile.progress + '%'"></div>
+                 </span>
+
+                <div class="alert alert-danger" ng-show="callFail">
+                    <stong>Error! </stong> {{message}}
+                </div>
+                <div class="alert alert-success" ng-show="callSuccess">
+                    <stong>Success! </stong> {{message}}
+                </div>
+
+            </div><!-- /. tab web /-->
+        </div>
+
+    </div>
+</div>

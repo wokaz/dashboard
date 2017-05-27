@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>
+<html lang="en" ng-app="okoa" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>
+<html lang="en" ng-app="okoa" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>
+<html lang="en" ng-app="okoa" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="en" ng-app="okoa" class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Okoa</title>
+    <meta name="description" content="">
+    <meta name="theme-color" content="#0b153c">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--<link rel="icon" sizes="200x200" href="img/masikini-icon.png">-->
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link href="node_modules/font-awesome/css/font-awesome.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="node_modules/ng-table/bundles/ng-table.css">
+    <link rel="stylesheet" href="bower_components/angular-xeditable/dist/css/xeditable.css">
+
+    <!-- Custom CSS -->
+    <link href="css/landing-page.css" rel="stylesheet">
+    <link href="css/sb-admin.css" rel="stylesheet">
+
+    <!-- Morris Charts CSS -->
+    <!--<link href="css/morris.css" rel="stylesheet">-->
+
+    <!-- todo use minified version of files -->
+    <!--<link rel="stylesheet" href="css/okoa-styles.css">-->
+</head>
+<body>
+
+<!--[if lt IE 7]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+    your browser</a> to improve your experience.</p>
+<![endif]-->
+
+
+<div ui-view>
+    <div class="col-md-4 col-md-offset-4 text-center">
+        <!--Loading ...-->
+        <h1 class="text-center"><img ng-src="img/gears.gif"></h1>
+    </div>
+</div>
+
+<!--js dependencies-->
+<script src="node_modules/jquery/dist/jquery.min.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+
+<!--<script src="js/raphael.min.js"></script>-->
+<!--<script src="js/morris.js"></script>-->
+<!--<script src="js/morris-data.js"></script>-->
+
+<!-- In production use:
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
+-->
+<script src="bower_components/angular/angular.js"></script>
+
+<!--custom angular dependencies-->
+<!--<script src="node_modules/@uirouter/core/lib/router.js"></script>-->
+<!--<script src="node_modules/@uirouter/core/_bundles/ui-router-core.js"></script>-->
+<script src="js/angular-ui-router.js"></script>
+<script src="bower_components/angular-local-storage/dist/angular-local-storage.min.js"></script>
+<script src="node_modules/ng-table/bundles/ng-table.js"></script>
+<script src="bower_components/angular-xeditable/dist/js/xeditable.min.js"></script>
+<script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+<script src="bower_components/angular-messages/angular-messages.js"></script>
+
+<!--todo minify all dependencies to reduce app size and load time-->
+<!-- include only minified version of files-->
+<!--<script src="js/admin-scripts.min.js?v=1.4.3"></script>-->
+
+<!--angular app files-->
+<script src="js/app.js"></script>
+<script src="js/services.js"></script>
+<script src="modules/dashboard/dashboardModule.js"></script>
+<script src="modules/dashboard/js/controllers.js"></script>
+<script src="modules/dashboard/js/services.js"></script>
+<script src="modules/dashboard/js/filters.js"></script>
+<script src="modules/dashboard/js/directives.js"></script>
+<script src="modules/home/homeModule.js"></script>
+<script src="modules/home/js/controllers.js"></script>
+<script src="modules/home/js/services.js"></script>
+
+ <!--todo use minified version before push.....add version number to avoid cache -->
+<!--compressed angular files-->
+<!--<script src="js/admin_angular.min.js?v=1.4.3"></script>-->
+
+</body>
+</html>

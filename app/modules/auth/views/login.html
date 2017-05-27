@@ -1,0 +1,45 @@
+<div class="container" style="padding-top: 10%;">
+    <div class="text-center">
+        <img src="img/masikini-icon.png" height="80" style="">
+    </div>
+    <h3>Sign In</h3>
+    <!--<form class="" ng-submit="login()">-->
+        <!--<h3 class="form-signin-heading text-center">{{title}}</h3>-->
+        <!--<div class="alert alert-danger" ng-show="callFail">-->
+            <!--<strong>Error! </strong>{{callError}}-->
+        <!--</div>-->
+        <!--<label for="adminUsername" class="sr-only">Email address</label>-->
+        <!--<input type="email" id="adminUsername" ng-model="credentials.username" class="form-control" placeholder="Email address"-->
+               <!--required autofocus>-->
+        <!--<label for="adminPassword" class="sr-only">Password</label>-->
+        <!--<input type="password" id="adminPassword" ng-model="credentials.password" class="form-control" placeholder="Password"-->
+               <!--required>-->
+        <!--<button class="btn btn-lg btn-danger btn-block" name="adminLogin" type="submit" ng-hide="loading">{{buttonText}}</button>-->
+        <!--<button class="btn btn-lg btn-danger btn-block"  type="button" ng-show="loading">{{buttonText}}... <img src="img/circular_loader.gif"></button>-->
+    <!--</form>-->
+
+    <form ng-submit="login()">
+        <div class="form-group">
+            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+        </div>
+        <div class="form-group">
+            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+        </div>
+        <button type="submit" class="form-control btn btn-danger">Login</button>
+    </form>
+
+    <h3 class="text-center">OR</h3>
+
+    <a class="btn btn-block btn-social btn-facebook text-center" ng-click="getLoginStatus()">
+        <span class="fa fa-facebook"></span> Sign in with Facebook
+    </a>
+    <a class="btn btn-block btn-social btn-google text-center">
+        <span class="fa fa-google"></span> Sign in with Google
+    </a>
+
+    <div class="" style="position:fixed; bottom: 0; left:1px; width: 100%; padding:15px;">
+        <div class="pull-left"><a ui-sref="auth.register" >New here? Sign Up</a></div>
+        <div class="pull-right"><a ui-sref="auth.register" >Forgot Password?</a></div>
+    </div>
+
+</div>

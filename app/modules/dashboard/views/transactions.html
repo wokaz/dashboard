@@ -1,0 +1,59 @@
+<ol class="breadcrumb">
+    <li>
+        <i class="fa fa-dashboard"></i> <a ui-sref="home.dashboard">Dashboard</a>
+    </li>
+    <li class="active">
+        <i class="fa fa-table"></i> Transactions.
+    </li>
+</ol>
+
+<h4>{{title}}</h4>
+
+<div ng-show="loading">
+    <h4 class="text-center"><img src="img/loading_transparent.GIF"> </h4>
+</div>
+<div ng-init="getTransactions()" ng-show="callSuccess">
+    <div class="alert alert-success" ng-show="u_callSucess"><strong>Success!</strong> Update successfull</div>
+    <div class="alert alert-success" ng-show="u_callFail"><strong>Error!</strong> {{u_callError}}</div>
+    <div class="">
+        <button class="btn btn-info pull-right" ng-click="getTransactions()"><span class="fa fa-refresh"></span></button>
+    </div>
+    <table ng-table="transactionParams" class="table table-condensed table-bordered table-striped">
+        <tr ng-repeat="row in $data">
+            <td data-title="'User Id'" filter="{userId: 'text'}">{{row.userId}}</td>
+            <td data-title="'Transaction Id'" filter="{tId: 'text'}">{{row.tId}}</td>
+            <td data-title="'Phone'" filter="{phone: 'number'}">{{row.phone}}</td>
+            <td data-title="'Amount'">{{row.amount}}</td>
+            <td data-title="'Date'" sortable="'created'">{{row.created}}</td>
+            <td data-title="'Status'">{{row.status}}</td>
+            <td data-title="'Message'">{{row.returnedMessage}}</td>
+            <td data-title="'Check Status'"><button class="btn btn-default" data-toggle="modal" data-target="#tranModal" ng-click="checkStatus(row)"><span class="fa fa-info-circle"></span></button></td>
+        </tr>
+    </table>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="tranModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Payment Status check</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    <div class="alert alert-info" ng-show="s_loading"><h4 class="text-center"><img src="img/loading_transparent.GIF"> </h4></div>
+                    <div class="alert alert-danger" ng-show="s_callFail">
+                        <strong>Error ! </strong>{{s_callError}}
+                    </div>
+                    <div class="alert alert-success" ng-show="s_callSuccess">
+                        <strong>Success !</strong> Payment was made, update ?
+                    </div>
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Update</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

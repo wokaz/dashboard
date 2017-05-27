@@ -1,0 +1,46 @@
+<div>
+    <div class="col-md-3"></div>
+    <div class="col-md-6" style="background-color: white; opacity: 0.9; padding: 10px;">
+        <h3 class="text-center text-info">REGISTER</h3>
+        <form name="registerForm" ng-submit="register()">
+            <div class="form-group" ng-class="{'has-error':registerForm.sacco_name.$touched && registerForm.sacco_name.$invalid}">
+                <input type="text" class="form-control" name="sacco_name" ng-model="registerData.name" ng-pattern="/^[a-zA-Z0-9 ]*$/" required placeholder="SACCO Name">
+                <div ng-messages="registerForm.sacco_name.$error" class="help-block" ng-show="registerForm.sacco_name.$touched && registerForm.sacco_name.$invalid">
+                    <p ng-message="required">SACCO Name is required.</p>
+                </div>
+            </div>
+            <div class="form-group" ng-class="{'has-error':registerForm.user_name.$touched && registerForm.user_name.$invalid}">
+                <input type="text" class="form-control" name="user_name" ng-model="registerData.user_name" ng-pattern="/^[a-zA-Z]*$/" required placeholder="Full Name">
+                <div ng-messages="registerForm.sacco_name.$error" class="help-block" ng-show="registerForm.sacco_name.$touched && registerForm.sacco_name.$invalid">
+                    <p ng-message="required">SACCO Name is required.</p>
+                </div>
+            </div>
+            <div class="form-group" ng-class="{'has-error':registerForm.email.$touched && registerForm.email.$invalid}">
+                <input type="text" class="form-control" placeholder="Email" name="email" ng-model="registerData.email" ng-pattern="/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/" required>
+                <div ng-messages="registerForm.email.$error" class="help-block" ng-show="registerForm.email.$touched">
+                    <p ng-message="required">Email is required.</p>
+                    <p ng-message="pattern">Email is invalid.</p>
+                </div>
+            </div>
+            <div class="form-group" ng-class="{'has-error':registerForm.phone.$touched && registerForm.phone.$invalid}">
+                <input type="number" class="form-control" placeholder="Phone Number" name="phone" ng-model="registerData.phone" ng-pattern="/^((\+?256)|0)\d{9}$|^(0)\d{9}$/" required>
+                <div ng-messages="registerForm.phone.$error" class="help-block text-danger" ng-show="registerForm.phone.$touched">
+                    <p ng-message="required">Phone number is required.</p>
+                    <p ng-message="pattern">Invalid phone number</p>
+                </div>
+            </div>
+            <div class="form-group" ng-class="{'has-error':registerForm.pin.$touched && registerForm.pin.$invalid}">
+                <input type="number" class="form-control" placeholder="PIN" name="pin" ng-model="registerData.pin" required>
+                <div ng-messages="registerForm.pin.$error" class="help-block text-danger" ng-show="registerForm.pin.$touched">
+                    <p ng-message="required">PIN is required.</p>
+                </div>
+            </div> 
+            <div class="form-group">
+                <button type="submit" class="btn btn-success form-control" ng-disabled="registerForm.$invalid">REGISTER
+                    <img src="images/horizontal_loader_20.gif" ng-show="loading"></button>
+            </div>
+            <p class="click text-info">By clicking this button, you are agree to my  <a href="#">Policy Terms and Conditions.</a></p>
+        </form>
+    </div>
+    <div class="col-md-3"></div>
+</div>
