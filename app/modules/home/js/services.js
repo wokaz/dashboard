@@ -2,18 +2,26 @@
  * Created by Andrew on 4/4/17.
  */
 angular.module('okoa.home.services', [])
-    .factory('authenticator', ['$http', function ($http) {
-        //
-    }])
-    .factory('searchService', ['$http','urlProvider', function ($http,urlProvider) {
+    .factory('authenticator', ['$http','urlProvider', function ($http,urlProvider) {
         return {
-            amSearch : function(query,page,limit,domain){
+            login : function(loginData){
                 return $http({
                     method: "get",
-                    url: urlProvider.apiEndPoint+"search/am/"+query+"?page="+page+"&limit="+limit+"&domain="+domain,
-                    data: "page="+page+
-                    "&limit="+limit+
-                    "&domain="+domain
+                    url: urlProvider.apiEndPoint + "login",
+                    data: loginData
+                }).then(function(response){
+                    return response.data;
+                });
+            }
+        }
+    }])
+    .factory('registrationService', ['$http','urlProvider', function ($http,urlProvider) {
+        return {
+            register : function(registerData){
+                return $http({
+                    method: "get",
+                    url: urlProvider.apiEndPoint+"register/am/"+query+"?page="+page+"&limit="+limit+"&domain="+domain,
+                    data: registerData
                 }).then(function(response){
                     return response.data;
                 });

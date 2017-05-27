@@ -1,21 +1,18 @@
-/**
- * Created by Andrew on 9/5/16.
- */
 angular.module('okoa.dashboard.services', [])
     .factory('dataService',['$http','urlProvider', function ($http,urlProvider) {
         return{
-            mobileImages : function () {
+            getUsers : function () {
                 return $http({
                     method: "get",
-                    url: urlProvider.apiEndPoint+"getMobileImages"
+                    url: urlProvider.apiEndPoint+"getUsers"
                 }).then(function(response){
                     return response.data;
                 });
             },
-            webImages : function () {
+            pendingApprovals : function () {
                 return $http({
                     method: "get",
-                    url: urlProvider.apiEndPoint+"getWebImages"
+                    url: urlProvider.apiEndPoint+"pendingApprovals"
                 }).then(function(response){
                     return response.data;
                 });

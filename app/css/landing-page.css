@@ -25,17 +25,29 @@ h6 {
     font-size: 14px; 
 }
 
+.topnav .navbar-nav li a{
+    color: #ffffff;
+}
+.topnav .navbar-nav li a:hover{
+    color: #a8a5c5;
+}
+.topnav .navbar-nav li a:focus{
+    color: #a8a5c5;
+}
+
 .lead {
     font-size: 18px;
     font-weight: 400;
 }
 
 .intro-header {
-    padding-top: 50px; /* If you're making other pages, make sure there is 50px of padding to make sure the navbar doesn't overlap content! */
-    padding-bottom: 50px;
+    /*padding-top: 50px; /!* If you're making other pages, make sure there is 50px of padding to make sure the navbar doesn't overlap content! *!/*/
+    padding-top: 15px; /* If you're making other pages, make sure there is 50px of padding to make sure the navbar doesn't overlap content! */
+    /*padding-bottom: 50px;*/
+    padding-bottom: 15px;
     text-align: center;
     color: #f8f8f8;
-    background: url(../img/background_2.jpg) no-repeat center center;
+    background: url(../img/background.jpg) no-repeat center center;
     background-size: cover;
 }
 

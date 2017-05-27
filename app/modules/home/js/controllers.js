@@ -31,20 +31,58 @@ angular.module('okoa.home.controllers', [])
         $scope.hhead = "head";
         //dataStore.setParentActivity("home.landing");
     }])
-    .controller('LoginController',['$state','$scope','dataStore', function ($state,$scope,dataStore) {
+    .controller('LoginController',['$state','$scope','dataStore','authenticator', function ($state,$scope,dataStore,authenticator) {
         //console.log('The user');
-        $scope.title = "Dashboard";
-        $scope.hhead = "head";
+        $scope.title = "Login";
+        $scope.loginData = {};
         //dataStore.setParentActivity("home.search");
 
         $scope.login = function(){
-            console.log('Attempt to go to search');
+            console.log('Attempt to login');
             $state.go('dashboard.dashboard');
+            
+            $scope.loading = true;
+            authenticator.login($scope.loginData)
+                .then(function (response) {
+                    $scope.loading = false;
+                    if(response.success){
+                        $scope.callSuccess = true;
+                        $scope.payload = response.payload;
+                    }else{
+                        $scope.callFail = true;
+                        $scope.callError = response.message;
+                    }
+                },function(err){
+                    $scope.loading = false;
+                    $scope.callFail = true;
+                    $scope.callSuccess = false;
+                    $scope.callError = err.statusText;
+                })
         }
     }])
-    .controller('RegisterController',['$state','$scope','dataStore','searchService','$stateParams', function ($state,$scope,dataStore,searchService,$stateParams) {
+    .controller('RegisterController',['$state','$scope','dataStore','registrationService','$stateParams', function ($state,$scope,dataStore,registrationService,$stateParams) {
         //console.log('The user');
         $scope.title = "Register";
+        $scope.registerData = {};
+
+        $scope.register = function(){
+            registrationService.register($scope.registerData)
+                .then(function (response) {
+                    $scope.loading = false;
+                    if(response.success){
+                        $scope.callSuccess = true;
+                        $scope.payload = response.payload;
+                    }else{
+                        $scope.callFail = true;
+                        $scope.callError = response.message;
+                    }
+                },function(err){
+                    $scope.loading = false;
+                    $scope.callFail = true;
+                    $scope.callSuccess = false;
+                    $scope.callError = err.statusText;
+                })
+        }
     }])
     .controller('DetailsUSController',['$state','$scope','productService','$stateParams',function($state,$scope,productService,$stateParams){
         //set up slides
