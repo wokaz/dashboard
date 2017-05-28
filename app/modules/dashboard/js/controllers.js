@@ -38,7 +38,6 @@ angular.module('okoa.dashboard.controllers', [])
         //console.log('The user');
         $scope.title = "Dashboard";
 
-        console.log('User token ::',dataStore.localGet('token'));
         console.log('Group code ::',dataStore.localGet('sacco_code'));
 
         $scope.getInitData = function(){
@@ -47,15 +46,81 @@ angular.module('okoa.dashboard.controllers', [])
                 .then(function (response) {
                     $scope.loading = false;
                     console.log("Init response ::",response);
+                    if(response.accepted){
+                        $scope.callSuccess =true;
+                        $scope.summary = response.data;
+                    }else{
+                        $scope.callFail = true;
+                        $scope.callError = response.description;
+                    }
+                }, function (err) {
+                    console.log("users call error ::",err);
+                    $scope.loading = false;
+                    $scope.callFail = true;
+                    $scope.callSuccess = false;
+                    $scope.callError = response.statusText;
                 })
         };
 
         $scope.getInitData();
     }])
-    .controller('UsersController',['$state','$scope','dataService','dataStore', function ($state,$scope,dataService,dataStore) {
+    .controller('UsersController',['$state','$scope','dataService','dataStore','NgTableParams','transactionService','toastr', function ($state,$scope,dataService,dataStore,NgTableParams,transactionService,toastr) {
         $scope.title = "Users";
+        var users = [];
+        //toastr.success("Yay");
 
-        console.log("user token ::" + dataStore.localGet('token'));
+        $scope.getUsers = function () {
+            $scope.loading  = true;
+            dataService.getUsers()
+                .then(function (response) {
+                    console.log('users response ::',response);
+                    $scope.loading = false;
+                    if(response.accepted){
+                        $scope.callSuccess = true;
+                        users = response.data;
+
+                        $scope.tableParams = new NgTableParams({}, {
+                            dataset: users
+                        });
+                    }else{
+                        $scope.callFail = true;
+                        $scope.callError = response.description;
+                    }
+                }, function (err) {
+                    console.log("users call error ::",err);
+                    $scope.loading = false;
+                    $scope.callFail = true;
+                    $scope.callSuccess = false;
+                    $scope.callError = response.statusText;
+                })
+        };
+
+        $scope.getUsers();
+
+        $scope.approve = function(data){
+            var updateData = {};
+            updateData.phone = data.phone;
+            updateData.approved = true;
+            $scope.u_loading = true;
+            transactionService.updateUser(updateData)
+                .then(function (response) {
+                    $scope.u_loading = false;
+                    if(response.accepted){
+                        toastr.success(response.description);
+                        $scope.u_callSuccess = true;
+                        $scope.u_callMessage = response.description;
+                    }else{
+                        toastr.error(response.description);
+                        $scope.u_callFail = true;
+                        $scope.u_callError = response.description;
+                    }
+                }, function (err) {
+                    toastr.error(response.description);
+                    $scope.u_loading = false;
+                    $scope.u_callFail = true;
+                    $scope.u_callError = err.statusText;
+                })
+        }
     }])
     .controller('LoansController',['$state','$scope','dataService', function ($state,$scope,dataService) {
         $scope.title = "Loans";

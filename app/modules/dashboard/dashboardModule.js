@@ -23,6 +23,14 @@ myApp.config(['$stateProvider', function ($stateProvider) {
         url:'/settings',
         controller:'SettingsController',
         templateUrl:'modules/dashboard/views/settings.html'
+    }).state('dashboard.users',{
+        url:'/users',
+        controller:'UsersController',
+        templateUrl:'modules/dashboard/views/users.html'
+    }).state('dashboard.loans',{
+        url:'/loans',
+        controller:'LoansController',
+        templateUrl:'modules/dashboard/views/loans.html'
     }).state('dashboard.logout',{
         url:'/logout',
         controller:'LogoutController',

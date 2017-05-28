@@ -1,10 +1,18 @@
 angular.module('okoa.dashboard.services', [])
-    .factory('dataService',['$http','urlProvider', function ($http,urlProvider) {
+    .factory('dataService',['$http','urlProvider','dataStore', function ($http,urlProvider,dataStore) {
         return{
             getUsers : function () {
                 return $http({
                     method: "get",
-                    url: urlProvider.apiEndPoint+"getUsers"
+                    url: urlProvider.apiEndPoint+"account/users"
+                }).then(function(response){
+                    return response.data;
+                });
+            },
+            getLoans : function () {
+                return $http({
+                    method: "get",
+                    url: urlProvider.apiEndPoint+"account/loans"
                 }).then(function(response){
                     return response.data;
                 });
@@ -20,7 +28,7 @@ angular.module('okoa.dashboard.services', [])
             initData : function () {
                 return $http({
                     method: "get",
-                    url: urlProvider.apiEndPoint+"account"
+                    url: urlProvider.apiEndPoint+"account/summary"
                 }).then(function(response){
                     return response.data;
                 });
@@ -37,14 +45,23 @@ angular.module('okoa.dashboard.services', [])
     }])
     .factory('transactionService',['$http','urlProvider', function ($http,urlProvider) {
         return {
-            updateSettings : function (updateData) {
-            return $http({
-                method: "post",
-                url: urlProvider.apiEndPoint+"updateSettings",
-                data : updateData
-            }).then(function(response){
-                return response.data;
-            });
-        }
+            updateSettings: function (updateData) {
+                return $http({
+                    method: "post",
+                    url: urlProvider.apiEndPoint + "updateSettings",
+                    data: updateData
+                }).then(function (response) {
+                    return response.data;
+                });
+            },
+            updateUser: function (updateData) {
+                return $http({
+                    method: "post",
+                    url: urlProvider.apiEndPoint + "account/approve",
+                    data: updateData
+                }).then(function (response) {
+                    return response.data;
+                });
+            }
         }
     }]);

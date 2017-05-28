@@ -18,6 +18,10 @@ myApp.config(['$stateProvider', function ($stateProvider) {
         url:'',
         controller:'LandingController',
         templateUrl: 'modules/home/views/landing.html'
+    }).state('home.about',{
+        url:'/about',
+        controller:'AboutController',
+        templateUrl: 'modules/home/views/about.html'
     }).state('home.login',{
         url:'/login',
         controller:'LoginController',

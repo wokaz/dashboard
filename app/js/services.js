@@ -6,7 +6,8 @@ angular.module('okoa.services',[])
     .service('urlProvider',function () {
         //this.apiEndPoint = "http://212.47.246.249:8080/";
         this.apiEndPoint = "http://192.168.1.203:8080/";
-        this.session_timeout = 600;
+        //this.session_timeout = 600;
+        this.session_timeout = 86400;
     })
     .factory('userService',['dataStore', function (dataStore) {
         var userStore = {};
@@ -21,11 +22,10 @@ angular.module('okoa.services',[])
     .factory('httpInterceptor',['$rootScope','$interval','dataStore', function ($rootScope,$interval,dataStore) {
         return {
             request :function(config) {
-                console.log('The tooooken',dataStore.localGet('token'));
                 $rootScope.$broadcast('session_checkin','session timeout');
                 //if (dataStore.getLogin() !== null) {
                 config.headers['Authorization'] = 'Bearer ' + dataStore.localGet('token');
-                //config.headers.authorization = 'Bearer ' + dataStore.localGet('token');
+                //config.headers.Authorization = 'Bearer ' + dataStore.localGet('token');
                 //if (dataStore.localGet('token') !== null) {
                 //    config.headers['Authorization'] = 'bearer ' + dataStore.localGet('token');
                 //}

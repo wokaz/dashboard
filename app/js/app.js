@@ -2,7 +2,7 @@
 
 // Declare app level module which depends on views, and components
 angular.module('okoa', [
-    'ui.router', 'LocalStorageModule','okoa.dashboard','okoa.services','okoa.home','xeditable','ngSanitize','ngMessages'
+    'ui.router', 'LocalStorageModule','okoa.dashboard','okoa.services','okoa.home','xeditable','ngSanitize','ngMessages','ngTable','toastr'
 ])
     .run(['$state','$rootScope','userService','dataStore','editableOptions', function ($state,$rootScope,userService,dataStore,editableOptions) {
         console.log('Okoa running');
@@ -37,8 +37,8 @@ angular.module('okoa', [
         editableOptions.theme = 'bs3';
 
         //load default view
-        $state.go('dashboard.dashboard');
-        //$state.go('home.landing');
+        //$state.go('dashboard.dashboard');
+        $state.go('home.landing');
 
 
     }])
@@ -57,6 +57,5 @@ angular.module('okoa', [
 
         //set interceptors
         $httpProvider.interceptors.push('httpInterceptor');
-
     }])
 ;
