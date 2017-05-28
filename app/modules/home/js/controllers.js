@@ -87,6 +87,7 @@ angular.module('okoa.home.controllers', [])
                         $scope.callMessage = response.description;
                         $scope.sacco_code = response.data;
                         dataStore.localStore('sacco_code',$scope.sacco_code);
+                        dataStore.localStore('registerData',$scope.registerData);
                     }else{
                         $scope.callFail = true;
                         $scope.callError = response.description;

@@ -4,8 +4,8 @@
 
 angular.module('okoa.services',[])
     .service('urlProvider',function () {
-        //this.apiEndPoint = "http://212.47.246.249:8080/";
-        this.apiEndPoint = "http://192.168.1.203:8080/";
+        this.apiEndPoint = "http://212.47.246.249:8080/";
+        //this.apiEndPoint = "http://192.168.1.203:8080/";
         //this.session_timeout = 600;
         this.session_timeout = 86400;
     })

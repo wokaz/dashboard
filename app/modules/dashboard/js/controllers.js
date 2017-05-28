@@ -5,6 +5,7 @@ angular.module('okoa.dashboard.controllers', [])
     .controller('MainController',['$state','dataStore','$scope','userService','$rootScope','authorizer','$interval','urlProvider','$location', function ($state,dataStore,$scope,userService,$rootScope,authorizer,$interval,urlProvider,$location) {
         //console.log('The user',user);
         $rootScope.counter = urlProvider.session_timeout;
+        $scope.rData = dataStore.localGet('registerData');
 
         $scope.logout = function () {
             //scrub info
@@ -20,7 +21,7 @@ angular.module('okoa.dashboard.controllers', [])
             if($rootScope.counter < 0){
                 console.log("Session timed out :::",new Date().toLocaleTimeString());
                 $interval.cancel(timer);
-                dataStore.localStore("session_timedout",true);
+                //dataStore.localStore("session_timedout",true);
                 $scope.logout();
             }
 
@@ -39,6 +40,8 @@ angular.module('okoa.dashboard.controllers', [])
         $scope.title = "Dashboard";
 
         console.log('Group code ::',dataStore.localGet('sacco_code'));
+        $scope.rData = dataStore.localGet('registerData');
+        console.log('Register data ::',$scope.rData);
 
         $scope.getInitData = function(){
             $scope.loading = true;
@@ -63,6 +66,23 @@ angular.module('okoa.dashboard.controllers', [])
         };
 
         $scope.getInitData();
+
+        $scope.getProfileSummary = function () {
+            $scope.p_loading = true;
+            dataService.groupSummary()
+                .then(function (response) {
+                    console.log("Group summary ::",response);
+                    $scope.p_loading = false;
+                    if(response.accepted){
+                        dataStore.localStore('profile',response.data);
+                        $scope.profile = response.data
+                    }else{
+                        $scope.p_callFail = true;
+                    }
+                })
+        };
+
+        $scope.getProfileSummary();
     }])
     .controller('UsersController',['$state','$scope','dataService','dataStore','NgTableParams','transactionService','toastr', function ($state,$scope,dataService,dataStore,NgTableParams,transactionService,toastr) {
         $scope.title = "Users";
@@ -122,8 +142,45 @@ angular.module('okoa.dashboard.controllers', [])
                 })
         }
     }])
-    .controller('LoansController',['$state','$scope','dataService', function ($state,$scope,dataService) {
+    .controller('LoansController',['$state','$scope','dataService','NgTableParams','transactionService','toastr', function ($state,$scope,dataService,NgTableParams,transactionService,toastr) {
         $scope.title = "Loans";
+        var loans = [];
+
+        $scope.getLoans = function(){
+            $scope.loading = true;
+            dataService.getLoans()
+                .then(function (response) {
+                    if(response.accepted){
+                        $scope.callSuccess = true;
+                        loans = response.data;
+                    }else{
+                        $scope.callFail = true;
+                        $scope.callError = response.description;
+                    }
+                }, function (err) {
+                    $scope.loading = false;
+                    $scope.callFail = true;
+                    $scope.callSuccess = false;
+                    $scope.callError = err.statusText;
+                })
+        };
+
+        $scope.getLoans();
+
+        $scope.approve = function(data){
+            var updateData = {};
+            updateData.phone = data.phone;
+            updateData.approved = true;
+            transactionService.approveLoan(updateData)
+                .then(function (response) {
+                    $scope.u_loading = false;
+                    if(response.accepted){
+                        toastr.success("Yay " + response.description);
+                    }else{
+                        toastr.error("Error !" + response.description);
+                    }
+                })
+        };
     }])
     .controller('LogoutController',['$state','$scope','userService','dataStore', function ($state,$scope,userService,dataStore) {
         $scope.title = "Logout";

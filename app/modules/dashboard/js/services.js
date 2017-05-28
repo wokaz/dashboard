@@ -40,6 +40,14 @@ angular.module('okoa.dashboard.services', [])
                 }).then(function(response){
                     return response.data;
                 });
+            },
+            groupSummary : function () {
+                return $http({
+                    method: "get",
+                    url: urlProvider.apiEndPoint+"profile/summary"
+                }).then(function(response){
+                    return response.data;
+                });
             }
         }
     }])
